@@ -17,8 +17,8 @@ class ManagerSeeder extends Seeder
     {
         $manager = User::create([
             'name' => 'Manager User',
-            'email' => 'manager@example.com',
-            'password' => Hash::make('password'),
+            'email' => 'manager@gmail.com',
+            'password' => Hash::make('manager123'),
         ]);
 
         $managerRole = Role::where('name', 'Manager')->first();
