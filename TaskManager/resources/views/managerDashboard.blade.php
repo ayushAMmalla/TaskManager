@@ -1,4 +1,5 @@
-<h1>This is admin</h1>
+<h1>This is Manager</h1>
+
 <!-- Authentication -->
 <form method="POST" action="{{ route('logout') }}">
     @csrf

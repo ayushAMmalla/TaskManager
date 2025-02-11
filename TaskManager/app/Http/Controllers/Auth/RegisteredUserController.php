@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -41,10 +41,26 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Assign role based on email domain (Example logic)
+        if ($user->email === 'admin@gmail.com') {
+            $user->assignRole('Admin');
+        } elseif (strpos($user->email, 'manager') !== false) {
+            $user->assignRole('Manager');
+        } else {
+            $user->assignRole('Employee'); // Default role
+        }
+
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect based on role
+        if ($user->hasRole('Admin')) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->hasRole('Manager')) {
+            return redirect()->route('manager.dashboard');
+        } else {
+            return redirect()->route('employee.dashboard');
+        }
     }
 }

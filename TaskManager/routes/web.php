@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/adminDashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
+Route::middleware(['auth', 'role:Manager'])->group(function () {
+    Route::get('/managerDashboard', [ManagerController::class, 'index'])->name('manager.dashboard');
+});
 
 
 require __DIR__.'/auth.php';
