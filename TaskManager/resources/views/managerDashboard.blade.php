@@ -1,12 +1,17 @@
-<h1>This is Manager</h1>
+@extends('layouts.app')
 
-<!-- Authentication -->
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
+@section('content')
 
-    <x-responsive-nav-link :href="route('logout')"
-        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-        {{ __('Log Out') }}
-    </x-responsive-nav-link>
-</form>
+<div class="container">
+    <h1>Manager Dashboard</h1>
+    <p>Welcome, {{ Auth::user()->name }}! Manage and assign tasks.</p>
+    
+    <div class="card">
+        <div class="card-header">Manage Tasks</div>
+        <div class="card-body">
+            <a href="{{ route('manager.tasks') }}" class="btn btn-primary">View Tasks</a>
+            <a href="{{ route('manager.tasks.create') }}" class="btn btn-success">Create Task</a>
+        </div>
+    </div>
+</div>
+@endsection

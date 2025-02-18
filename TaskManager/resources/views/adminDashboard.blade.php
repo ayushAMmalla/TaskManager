@@ -1,11 +1,16 @@
-<h1>This is admin</h1>
-<!-- Authentication -->
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
+@extends('layouts.app')
 
-    <x-responsive-nav-link :href="route('logout')"
-        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-        {{ __('Log Out') }}
-    </x-responsive-nav-link>
-</form>
+@section('content')
+<div class="container">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, {{ Auth::user()->name }}! You have full control over the system.</p>
+    
+    <div class="card">
+        <div class="card-header">Manage Tasks</div>
+        <div class="card-body">
+            <a href="{{ route('admin.tasks') }}" class="btn btn-primary">View All Tasks</a>
+            <a href="{{ route('admin.tasks.create') }}" class="btn btn-success">Create Task</a>
+        </div>
+    </div>
+</div>
+@endsection
