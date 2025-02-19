@@ -1,100 +1,138 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            </div>
+<style>
+    .sidebar {
+        width: 250px;
+        background-color: #3D8D7A;
+        color: white;
+        height: 100vh;
+        position: fixed;
+    }
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+    /* Navigation Buttons */
+    .nav-btn {
+        background: #A3D1C6;
+        color: white;
+        font-size: large;
+        font-weight: bold;
+        padding: 10px;
+        text-align: left;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        /* Space between icon & text */
+        transition: 0.3s;
+    }
 
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+    .nav-btn:hover {
+        background: #FBFFE4;
+        /* Soft Peach */
+        color: #B3D8A8 !important;
+    }
 
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+    .active-link {
+        background: white;
+        color: #B3D8A8 !important;
+        font-weight: bold;
+    }
 
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+    .content {
+        flex-grow: 1;
+        padding: 10px;
+        margin-left: 250px;
+    }
+</style>
+
+<!-- Primary Navigation Menu -->
+<div class="sidebar d-flex flex-column justify-content-between p-2" style="height: 100vh;">
+    <div>
+        <div class="mb-4 text-center">
+            <h1 class="fs-4">Welcome, {{ Auth::user()->name }}</h1>
         </div>
+        <hr>
+
+        <nav class="nav flex-column gap-2">
+            @if(Auth::check())
+            @if(Auth::user()->hasRole('Admin'))
+            <div>
+                <a href="{{ route('admin.dashboard') }}" class="btn nav-btn mt-2">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </div>
+            <div>
+                <a href="{{ route('admin.tasks') }}" class="btn nav-btn">
+                    Manage Task
+                </a>
+            </div>
+            <div>
+                <a href="#" class="btn nav-btn">
+                    Setting
+                </a>
+            </div>
+            @elseif(Auth::user()->hasRole('Manager'))
+            <div>
+                <a href="{{ route('manager.dashboard') }}" class="btn nav-btn">Manager Dashboard</a>
+            </div>
+            <div>
+                <a href="{{ route('manager.tasks') }}" class="btn nav-btn">Team Tasks</a>
+            </div>
+            <div>
+                <a href="#" class="btn nav-btn">
+                    Setting
+                </a>
+            </div>
+            @endif
+            @elseif(Auth::user()->hasRole('Employee'))
+            <div>
+                <a href="{{ route('employee.dashboard') }}" class="btn nav-btn">Employee Dashboard</a>
+            </div>
+            <div>
+                <a href="{{ rroute('employee.tasks') }}" class="btn nav-btn">My Tasks</a>
+            </div>
+            <div>
+                <a href="#" class="btn nav-btn">
+                    Setting
+                </a>
+            </div>
+            @endif
+        </nav>
     </div>
+    <form method="POST" action="{{ route('logout') }}" class="mt-3">
+        @csrf
+        <button type="submit" class="btn btn-danger w-100">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </form>
+</div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
+<!-- Top Header with Settings Dropdown Only -->
+<div class="d-flex justify-content-end align-items-center p-3" style="margin-left: 250px;">
+    <!-- Settings Dropdown (Bootstrap Dropdown) -->
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ Auth::user()->name }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    <button type="submit" class="dropdown-item" onclick="event.preventDefault(); this.closest('form').submit();">Log Out</button>
                 </form>
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
-</nav>
+</div>
+<!-- Bootstrap JS (Place this just before closing </body> tag) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<hr>
+@yield('content')
