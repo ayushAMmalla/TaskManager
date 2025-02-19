@@ -1,5 +1,8 @@
-
 <style>
+    body {
+        font-family: 'Poppins';
+    }
+
     .sidebar {
         width: 250px;
         background-color: #3D8D7A;
@@ -26,13 +29,12 @@
 
     .nav-btn:hover {
         background: #FBFFE4;
-        /* Soft Peach */
         color: #B3D8A8 !important;
     }
 
     .active-link {
         background: white;
-        color: #B3D8A8 !important;
+        color: #3D8D7A !important;
         font-weight: bold;
     }
 
@@ -62,26 +64,41 @@
             @if(Auth::check())
             @if(Auth::user()->hasRole('Admin'))
             <div>
-                <a href="{{ route('admin.dashboard') }}" class="btn nav-btn mt-2">
+                <a href="{{ route('admin.dashboard') }}"
+                    class="btn nav-btn {{ request()->routeIs('admin.dashboard') ? 'active-link' : '' }}">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </div>
             <div>
-                <a href="{{ route('admin.tasks') }}" class="btn nav-btn">
-                    Manage Task
+                <a href="{{ route('admin.tasks') }}"
+                    class="btn nav-btn {{ request()->routeIs('admin.tasks') ? 'active-link' : '' }}">
+                    <i class="fa-solid fa-list-check"></i> Task
                 </a>
             </div>
             <div>
-                <a href="#" class="btn nav-btn">
-                    Setting
+                <a href="{{ route('admin.tasks.create') }}"
+                    class="btn nav-btn {{ request()->routeIs('admin.tasks.create') ? 'active-link' : '' }}">
+                    <i class="fas fa-plus-circle"></i> Add Task
+                </a>
+            </div>
+            <div>
+                <a href="#"
+                    class="btn nav-btn {{ request()->routeIs('#') ? 'active-link' : '' }}">
+                    <i class="fa-solid fa-gears"></i> Settings
                 </a>
             </div>
             @elseif(Auth::user()->hasRole('Manager'))
             <div>
-                <a href="{{ route('manager.dashboard') }}" class="btn nav-btn">Manager Dashboard</a>
+                <a href="{{ route('manager.dashboard') }}"
+                    class="btn nav-btn {{ request()->routeIs('manager.dashboard') ? 'active-link' : '' }}">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
             </div>
             <div>
-                <a href="{{ route('manager.tasks') }}" class="btn nav-btn">Team Tasks</a>
+                <a href="{{ route('manager.tasks') }}"
+                    class="btn nav-btn {{ request()->routeIs('manager.tasks') ? 'active-link' : '' }}">
+                    <i class="fa-solid fa-list-check"></i> Task
+                </a>
             </div>
             <div>
                 <a href="#" class="btn nav-btn">
@@ -117,11 +134,13 @@
     <!-- Settings Dropdown (Bootstrap Dropdown) -->
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ Auth::user()->name }}
+            {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
             <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -131,7 +150,6 @@
         </ul>
     </div>
 </div>
-<!-- Bootstrap JS (Place this just before closing </body> tag) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <hr>
