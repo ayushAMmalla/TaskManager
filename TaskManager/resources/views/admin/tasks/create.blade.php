@@ -4,49 +4,58 @@
 <div class="content mt-5">
     <div class="card shadow-lg mx-auto" style="max-width: 450px; padding: 20px;">
         <h2>Create Task</h2>
-        <form method="post" action="{{ route('admin.tasks.store')}}">
+        <form method="post" action="{{ route('admin.tasks.store') }}">
             @csrf
             <div class="mb-3">
-                <label for="name">Title:</label>
-                <input type="text" class="form-control" name="name" id="name" required value="{{ old('name') }}">
-                @if ($errors->has('name'))
-                <p class="text-danger">
-                    <strong>{{ $errors->first('name') }}</strong>
-                </p>
-                @endif
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" name="title" id="title" required value="{{ old('title') }}">
+                @error('title')
+                <p class="text-danger"><strong>{{ $message }}</strong></p>
+                @enderror
             </div>
 
             <div class="mb-3">
                 <label for="description">Description:</label>
-                <input type="text" class="form-control" name="description" id="description" required value="{{ old('description') }}">
+                <input type="text" class="form-control" name="description" id="description" value="{{ old('description') }}">
                 @error('description')
                 <p class="text-danger"><strong>{{ $message }}</strong></p>
                 @enderror
             </div>
 
-            <div class="d-flex mb-3">
-                <label for="description">Deadline:</label>
-                <input type="time" class="form-control ms-2" name="time" id="time" required>
-                @error('time')
+            <div class="mb-3">
+                <label for="deadline">Deadline:</label>
+                <input type="date" class="form-control" name="deadline" id="deadline" required value="{{ old('deadline') }}">
+                @error('deadline')
                 <p class="text-danger"><strong>{{ $message }}</strong></p>
                 @enderror
             </div>
 
-            <div class="d-flex mb-3">
+            <div class="mb-3">
                 <label for="status">Status:</label>
-                <select class="form-select ms-2" name="status" id="status" required>
-                    <option value="" selected disabled>-- Select a Status --</option>
-                    <option value="pending" {{ old('status', $task->status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="in-progress" {{ old('status', $task->status ?? '') == 'in-progress' ? 'selected' : '' }}>In Progress</option>
-                    <option value="completed" {{ old('status', $task->status ?? '') == 'completed' ? 'selected' : '' }}>Completed</option>
+                <select class="form-select" name="status">
+                    <option value="pending">Pending</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="completed">Completed</option>
                 </select>
                 @error('status')
                 <p class="text-danger"><strong>{{ $message }}</strong></p>
                 @enderror
             </div>
+
+            <div class="mb-3">
+                <label for="user_id">Assign User:</label>
+                <select class="form-select" name="user_id">
+                    <option value="">-- Unassigned --</option>
+                    @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="button-container">
                 <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle me-1"></i> Add Task</button>
             </div>
-
+        </form>
     </div>
-    @endsection
+</div>
+@endsection
