@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="content">
+    @if($tasks->isEmpty())
+    <div class="text-center d-flex flex-column align-items-center">
+        <img src="{{ asset('images/notask.jpg') }}" alt="No tasks available" class="img-fluid" style="max-width: 300px;">
+        <p class="mt-3">No tasks available at the moment. Please check back later.</p>
+        <a href="{{ route('admin.tasks.create') }}" class="btn btn-success mt-2"><i class="fa-solid fa-list-check me-2"></i>Add task</a>
+    </div>
+
+    @else
     <table class="table table-bordered mt-4">
         <thead>
             <tr>
@@ -27,14 +35,14 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this task?');">
-                        <i class="fa-solid fa-trash me-2"></i>Remove
+                            <i class="fa-solid fa-trash me-2"></i>Remove
                         </button>
                     </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
-
     </table>
+    @endif
 </div>
 @endsection
