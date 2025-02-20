@@ -25,7 +25,7 @@ class ManagerSeeder extends Seeder
         $manager->assignRole($managerRole);
 
         $managerRole->givePermissionTo([
-            'create tasks', 'edit tasks', 'assign tasks', 'view all tasks'
+            'update assigned tasks', 'view all tasks'
         ]);
     }
 }

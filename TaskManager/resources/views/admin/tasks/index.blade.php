@@ -5,7 +5,7 @@
     @if($tasks->isEmpty())
     <div class="text-center d-flex flex-column align-items-center">
         <img src="{{ asset('images/notask.jpg') }}" alt="No tasks available" class="img-fluid" style="max-width: 300px;">
-        <p class="mt-3">No tasks available at the moment. Please check back later.</p>
+        <p class="mt-3">No tasks available at the moment. Please check back later or add task.</p>
         <a href="{{ route('admin.tasks.create') }}" class="btn btn-success mt-2"><i class="fa-solid fa-list-check me-2"></i>Add task</a>
     </div>
 

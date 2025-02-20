@@ -32,7 +32,7 @@ class EmployeeSeeder extends Seeder
 
         $employeeRole->givePermissionTo([
             'view assigned tasks',
-            'update status of assigned tasks'
+            'update assigned tasks'
         ]);
     }
 }

@@ -30,8 +30,8 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="status">Status:</label>
+            <div class="d-flex mb-3 col-12">
+                <label class="col-md-3" for="status">Status:</label>
                 <select class="form-select" name="status">
                     <option value="pending">Pending</option>
                     <option value="in-progress">In Progress</option>
@@ -42,8 +42,8 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="user_id">Assign User:</label>
+            <div class="d-flex mb-3 col-12">
+                <label class="col-md-3" for="user_id">Assign User:</label>
                 <select class="form-select" name="user_id">
                     <option value="">-- Unassigned --</option>
                     @foreach($users as $user)

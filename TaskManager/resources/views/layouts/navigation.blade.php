@@ -50,6 +50,9 @@
         padding: 10px;
         margin-left: 250px;
     }
+    .form-control{
+        border-radius: 5px;
+    }
 </style>
 
 <!-- Primary Navigation Menu -->

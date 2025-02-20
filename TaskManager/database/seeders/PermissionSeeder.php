@@ -19,6 +19,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'assign tasks']);
         Permission::create(['name' => 'view all tasks']);
         Permission::create(['name' => 'view assigned tasks']);
-        Permission::create(['name' => 'update status of assigned tasks']);
+        Permission::create(['name' => 'update assigned tasks']);
     }
 }
