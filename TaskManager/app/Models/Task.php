@@ -13,8 +13,8 @@ class Task extends Model
         'deadline',
         'user_id'
     ];
-    public function user()
+    public function employee()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id'); // Ensure 'user_id' matches the foreign key in the tasks table
     }
 }
