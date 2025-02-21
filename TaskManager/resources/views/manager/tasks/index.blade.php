@@ -27,7 +27,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $task->title }}</td>
                 <td>{{ $task->description }}</td>
-                <td>{{ $task->deadline }}</td>
+                <td>{{ \Carbon\Carbon::parse($task->deadline)->format('y-m-d') }}</td>
                 <td>{{ $task->employee->name ?? 'Unassigned' }}</td> <!-- Show Employee Name -->
                 <td>{{ $task->status }}</td>
                 <td>
@@ -43,6 +43,10 @@
                             <i class="fa-solid fa-check me-2"></i>Update
                         </button>
                     </form>
+                </td>
+                <td>
+                <a href="{{ route('manager.tasks.edit', $task->id) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</a>
+                    
                 </td>
             </tr>
             @endforeach

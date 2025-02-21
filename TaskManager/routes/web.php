@@ -32,7 +32,11 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 Route::middleware(['auth', 'role:Manager'])->group(function () {
     Route::get('/manager', [ManagerController::class, 'index'])->name('manager.dashboard');
     Route::get('/manager/tasks', [ManagerController::class, 'tasks'])->name('manager.tasks');
-    Route::put('/manager/tasks/{id}', [ManagerController::class, 'updateTask'])->name('manager.tasks.update');
+
+    Route::get('/manager/tasks/{task}/edit', [ManagerController::class, 'editTask'])->name('manager.tasks.edit');
+    Route::put('/manager/tasks/{task}', [ManagerController::class, 'updateTask'])->name('manager.tasks.update');
+
+    // Route::put('/manager/tasks/{id}', [ManagerController::class, 'updateTask'])->name('manager.tasks.update');
 });
 
 
