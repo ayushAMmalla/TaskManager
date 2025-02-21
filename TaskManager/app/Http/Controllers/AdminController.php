@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('adminDashboard');
+        return view('admin.adminDashboard');
     }
 
     // View all tasks
@@ -40,8 +40,8 @@ class AdminController extends Controller
         ]);
 
         Task::create($request->all());
-
-        return redirect()->route('admin.tasks')->with('success', 'Task created successfully');
+        toastr()->success('Task created successfully');
+        return redirect()->route('admin.tasks');
     }
 
     public function editTask(Task $task)
@@ -61,14 +61,15 @@ class AdminController extends Controller
         ]);
 
         $task->update($request->all());
-
-        return redirect()->route('admin.tasks')->with('success', 'Task updated successfully');
+        toastr()->success('Task updated successfully');
+        return redirect()->route('admin.tasks');
     }
 
     // Delete a task
     public function deleteTask(Task $task)
     {
         $task->delete();
-        return redirect()->route('admin.tasks')->with('success', 'Task deleted successfully');
+        toastr()->success('Task deleted successfully');
+        return redirect()->route('admin.tasks');
     }
 }

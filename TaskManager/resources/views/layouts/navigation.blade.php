@@ -84,12 +84,12 @@
                     <i class="fas fa-plus-circle"></i> Add Task
                 </a>
             </div>
-            <div>
+            <!-- <div>
                 <a href="#"
                     class="btn nav-btn {{ request()->routeIs('#') ? 'active-link' : '' }}">
                     <i class="fa-solid fa-gears"></i> Settings
                 </a>
-            </div>
+            </div> -->
             @elseif(Auth::user()->hasRole('Manager'))
             <div>
                 <a href="{{ route('manager.dashboard') }}"
@@ -116,11 +116,11 @@
             <div>
                 <a href="{{ rroute('employee.tasks') }}" class="btn nav-btn">My Tasks</a>
             </div>
-            <div>
+            <!-- <div>
                 <a href="#" class="btn nav-btn">
                     Setting
                 </a>
-            </div>
+            </div> -->
             @endif
         </nav>
     </div>
@@ -137,9 +137,10 @@
     <!-- Settings Dropdown (Bootstrap Dropdown) -->
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ Auth::user()->name }}
+           <i class="fa-regular fa-user"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+            <li><a class="dropdown-item"><strong>{{ Auth::user()->name }}</strong></li>
             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
             <li>
                 <hr class="dropdown-divider">
@@ -154,6 +155,5 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
 <hr>
 @yield('content')

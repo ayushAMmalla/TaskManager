@@ -16,6 +16,7 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Assigned User</th>
                 <th>Deadline</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -27,6 +28,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $task->title }}</td>
                 <td>{{ $task->description }}</td>
+                <td>{{ $task->employee->name ?? 'Unassigned' }} </td>
                 <td>{{ $task->deadline }}</td>
                 <td>{{ $task->status }}</td>
                 <td>

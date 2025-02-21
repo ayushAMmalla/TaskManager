@@ -10,7 +10,7 @@ class ManagerController extends Controller
 {
     public function index()
     {
-        return view('managerDashboard');
+        return view('manager.managerDashboard');
     }
 
     public function tasks()
@@ -29,7 +29,7 @@ class ManagerController extends Controller
 
         $task->status = $validated['status'];
         $task->save();
-
+        toastr()->success('Task status updated successfully.');
         return redirect()->back()->with('success', 'Task status updated successfully.');
     }
 }
