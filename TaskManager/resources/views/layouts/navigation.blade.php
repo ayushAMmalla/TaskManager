@@ -50,7 +50,8 @@
         padding: 10px;
         margin-left: 250px;
     }
-    .form-control{
+
+    .form-control {
         border-radius: 5px;
     }
 </style>
@@ -65,7 +66,7 @@
 
         <nav class="nav flex-column gap-2">
             @if(Auth::check())
-            @if(Auth::user()->hasRole('Admin'))
+            @if(Auth::user()->role === 'admin')
             <div>
                 <a href="{{ route('admin.dashboard') }}"
                     class="btn nav-btn {{ request()->routeIs('admin.dashboard') ? 'active-link' : '' }}">
@@ -84,13 +85,8 @@
                     <i class="fas fa-plus-circle"></i> Add Task
                 </a>
             </div>
-            <!-- <div>
-                <a href="#"
-                    class="btn nav-btn {{ request()->routeIs('#') ? 'active-link' : '' }}">
-                    <i class="fa-solid fa-gears"></i> Settings
-                </a>
-            </div> -->
-            @elseif(Auth::user()->hasRole('Manager'))
+
+            @elseif(Auth::user()->role === 'manager')
             <div>
                 <a href="{{ route('manager.dashboard') }}"
                     class="btn nav-btn {{ request()->routeIs('manager.dashboard') ? 'active-link' : '' }}">
@@ -108,20 +104,17 @@
                     Setting
                 </a>
             </div>
-            @endif
-            @elseif(Auth::user()->hasRole('Employee'))
+
+            @elseif(Auth::user()->role === 'employee')
             <div>
                 <a href="{{ route('employee.dashboard') }}" class="btn nav-btn">Employee Dashboard</a>
             </div>
             <div>
-                <a href="{{ rroute('employee.tasks') }}" class="btn nav-btn">My Tasks</a>
+                <a href="{{ route('employee.tasks') }}" class="btn nav-btn">My Tasks</a>
             </div>
-            <!-- <div>
-                <a href="#" class="btn nav-btn">
-                    Setting
-                </a>
-            </div> -->
             @endif
+            @endif
+
         </nav>
     </div>
     <form method="POST" action="{{ route('logout') }}" class="mt-3">
@@ -137,7 +130,7 @@
     <!-- Settings Dropdown (Bootstrap Dropdown) -->
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-           <i class="fa-regular fa-user"></i>
+            <i class="fa-regular fa-user"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
             <li><a class="dropdown-item"><strong>{{ Auth::user()->name }}</strong></li>

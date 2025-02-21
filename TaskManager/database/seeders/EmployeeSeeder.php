@@ -15,24 +15,15 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        $employeeRole = Role::where('name', 'Employee')->first();
-
         // List of employee names
         $employees = ['Ayush', 'Umesh', 'Krishna', 'Amrit'];
 
         foreach ($employees as $index => $name) {
-            $employee = User::create([
+            User::create([
                 'name' => $name,
                 'email' => strtolower($name) . '@gmail.com', // Ensuring lowercase email
                 'password' => Hash::make('11111' . $index), // Hashed password for security
             ]);
-
-            $employee->assignRole($employeeRole);
         }
-
-        $employeeRole->givePermissionTo([
-            'view assigned tasks',
-            'update assigned tasks'
-        ]);
     }
 }

@@ -32,15 +32,16 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
-            if ($user->hasRole('Admin')) {
-                return redirect()->route('admin.dashboard'); // Redirect Admin
-            } elseif ($user->hasRole('Manager')) {
-                return redirect()->route('manager.dashboard'); // Redirect Manager
-            } else {
-                return redirect()->route('employee.dashboard'); // Redirect Employee
+            // Check role from database (Assuming 'role' is a column in users table)
+            switch ($user->role) {
+                case 'Admin':
+                    return redirect()->route('admin.dashboard');
+                case 'Manager':
+                    return redirect()->route('manager.dashboard');
+                case 'Employee':
+                    return redirect()->route('employee.dashboard');
             }
         }
-
 
         return back()->withErrors(['email' => 'Invalid login credentials']);
     }
