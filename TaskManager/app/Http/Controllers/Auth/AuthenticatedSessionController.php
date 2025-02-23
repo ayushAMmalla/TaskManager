@@ -25,26 +25,31 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
-            // Check role from database (Assuming 'role' is a column in users table)
-            switch ($user->role) {
-                case 'Admin':
-                    return redirect()->route('admin.dashboard');
-                case 'Manager':
-                    return redirect()->route('manager.dashboard');
-                case 'Employee':
-                    return redirect()->route('employee.dashboard');
+            // Redirect based on role
+            if ($user->role === 'admin') {
+                toastr()->success('Admin login successfull!!');
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->role === 'manager') {
+                toastr()->success('Manager login successfull!!');
+                return redirect()->route('manager.dashboard');
+            } else {
+                toastr()->success('Emploayee login successfull!!');
+                return redirect()->route('employee.dashboard');
             }
         }
 
-        return back()->withErrors(['email' => 'Invalid login credentials']);
+        return back()->withErrors([
+            'email' => 'Invalid credentials.',
+        ]);
     }
+
 
     /**
      * Destroy an authenticated session.
@@ -56,7 +61,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
+        toastr()->success('Logout successfull!!');
         return redirect('/');
     }
 }

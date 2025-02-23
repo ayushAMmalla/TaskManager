@@ -62,8 +62,7 @@
         <div class="mb-4 text-center">
             <h1 class="fs-4">Welcome, {{ Auth::user()->name }}</h1>
         </div>
-        <hr>
-
+        <hr class="mt-2 mb-4">
         <nav class="nav flex-column gap-2">
             @if(Auth::check())
             @if(Auth::user()->role === 'admin')
@@ -148,5 +147,4 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<hr>
 @yield('content')
