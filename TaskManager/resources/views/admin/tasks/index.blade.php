@@ -17,7 +17,8 @@
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assigned User</th>
-                <th>Deadline</th>
+                <th>Start Date</th>
+                <th>End Date</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -29,7 +30,8 @@
                 <td>{{ $task->title }}</td>
                 <td>{{ $task->description }}</td>
                 <td>{{ $task->employee->name ?? 'Unassigned' }} </td>
-                <td>{{ $task->deadline }}</td>
+                <td>{{ $task->start_date }}</td>
+                <td>{{ $task->end_date }}</td>
                 <td>{{ $task->status }}</td>
                 <td>
                     <a href="{{ route('admin.tasks.edit', $task->id) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</a>

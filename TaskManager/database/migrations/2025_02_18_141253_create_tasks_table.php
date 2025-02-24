@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->dateTime('deadline');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->enum('status', ['pending', 'in-progress', 'completed'])->default('pending');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
