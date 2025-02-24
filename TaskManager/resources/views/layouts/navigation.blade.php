@@ -132,7 +132,7 @@
             <i class="fa-regular fa-user"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
-            <li><a class="dropdown-item"><strong>{{ Auth::user()->name }}</strong></li>
+            <li class="dropdown-item-text"><strong>{{ Auth::user()->name }}</strong></li>
             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
             <li>
                 <hr class="dropdown-divider">
