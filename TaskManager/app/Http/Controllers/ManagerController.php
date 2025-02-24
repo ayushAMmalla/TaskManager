@@ -22,7 +22,7 @@ class ManagerController extends Controller
 
     public function editTask(Task $task)
     {
-        $users = User::all();
+        $users = User::whereIn('role', ['employee'])->get();
         return view('manager.tasks.edit', compact('task', 'users'));
     }
 

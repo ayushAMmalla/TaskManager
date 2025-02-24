@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="content mt-4">
-    <div class="row">
+    <div class="row justify-content-center">
         <!-- Profile Information Card (Half Width) -->
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card mb-4">
                 <div class="card-header bg-secondary text-white">
                     {{ __('Profile Information') }}
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Update Password Card (Half Width) -->
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card mb-4">
                 <div class="card-header bg-warning text-dark">
                     {{ __('Update Password') }}
@@ -27,10 +27,9 @@
             </div>
         </div>
     </div>
-
-    <!-- Delete Account Card (Full Width) -->
-    <div class="row">
-        <div class="col-md-12">
+    
+    <div class="row justify-content-center">
+        <div class="col-md-10">
             <div class="card mb-4">
                 <div class="card-header bg-danger text-white">
                     {{ __('Delete Account') }}

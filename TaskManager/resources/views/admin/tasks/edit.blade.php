@@ -57,7 +57,7 @@
             <div class="d-flex mb-3 col-12">
             <label class="col-md-3" for="status">Assigned to:</label>
                 <select class="form-select" id="user_id" name="user_id">
-                    <option value="">-- Select Employee --</option>
+                    <option value="" disabled selected>-- Select Employee --</option>
                     @foreach($users as $user)
                     <option value="{{ $user->id }}" {{ $task->user_id == $user->id ? 'selected' : '' }}>
                         {{ $user->name }}

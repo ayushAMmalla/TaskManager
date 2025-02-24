@@ -16,7 +16,7 @@
 
             <div class="mb-3">
                 <label for="description">Description:</label>
-                <textarea class="form-control" id="description" name="description" rows="2" placeholder="Describe.."></textarea>
+                <textarea class="form-control" id="description" name="description" rows="2" placeholder="Describe.." required></textarea>
                 @error('description')
                 <p class="text-danger"><strong>{{ $message }}</strong></p>
                 @enderror
@@ -57,7 +57,7 @@
             <div class="d-flex mb-3 col-12">
                 <label class="col-md-3" for="user_id">Assign User:</label>
                 <select class="form-select" name="user_id">
-                    <option value="">-- Unassigned --</option>
+                    <option value="" disabled selected>-- Unassigned --</option>
                     @foreach($users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
