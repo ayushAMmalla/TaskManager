@@ -34,13 +34,12 @@ Route::middleware(['auth', 'role:manager'])->group(function () {
     Route::get('/manager/tasks/{task}/edit', [ManagerController::class, 'editTask'])->name('manager.tasks.edit');
     Route::put('/manager/tasks/{task}', [ManagerController::class, 'updateTask'])->name('manager.tasks.update');
 
-    // Route::put('/manager/tasks/{id}', [ManagerController::class, 'updateTask'])->name('manager.tasks.update');
 });
 
 Route::middleware(['auth', 'role:employee'])->group(function () {
     Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.dashboard');
     Route::get('/employee/tasks', [EmployeeController::class, 'tasks'])->name('employee.tasks');
-    // Route::put('/manager/tasks/{id}', [ManagerController::class, 'updateTask'])->name('manager.tasks.update');
+    Route::put('/employee/tasks/{id}', [EmployeeController::class, 'updateTask'])->name('employee.tasks.update');
 });
 
 

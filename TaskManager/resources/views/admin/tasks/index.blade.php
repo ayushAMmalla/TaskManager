@@ -73,7 +73,15 @@
                 <td>{{ $task->employee->name ?? 'Unassigned' }} </td>
                 <td>{{ $task->start_date }}</td>
                 <td>{{ $task->end_date }}</td>
-                <td>{{ $task->status }}</td>
+                <td>
+                    <span class="badge p-2 fs-6
+                        @if($task->status == 'pending') bg-warning text-dark
+                        @elseif($task->status == 'in-progress') bg-primary text-white
+                        @elseif($task->status == 'completed') bg-success text-white
+                        @endif">
+                        {{ ucfirst($task->status) }}
+                    </span>
+                </td>
                 <td>
                     <a href="{{ route('admin.tasks.edit', $task->id) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</a>
                     <form method="POST" action="{{ route('admin.tasks.delete', $task->id) }}" style="display: inline;">

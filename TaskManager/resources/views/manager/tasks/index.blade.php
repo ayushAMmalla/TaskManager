@@ -12,7 +12,7 @@
     <table class="table table-bordered mt-4">
         <thead>
             <tr>
-            <th>ID</th>
+                <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assigned User</th>
@@ -25,13 +25,21 @@
         <tbody>
             @foreach ($tasks as $index => $task)
             <tr>
-            <td>{{ $index + 1 }}</td>
+                <td>{{ $index + 1 }}</td>
                 <td>{{ $task->title }}</td>
                 <td>{{ $task->description }}</td>
                 <td>{{ $task->employee->name ?? 'Unassigned' }} </td>
                 <td>{{ $task->start_date }}</td>
                 <td>{{ $task->end_date }}</td>
-                <td>{{ $task->status }}</td>
+                <td>
+                    <span class="badge p-2 fs-6
+                        @if($task->status == 'pending') bg-warning text-dark
+                        @elseif($task->status == 'in-progress') bg-primary text-white
+                        @elseif($task->status == 'completed') bg-success text-white
+                        @endif">
+                        {{ ucfirst($task->status) }}
+                    </span>
+                </td>
                 <td>
                     <a href="{{ route('manager.tasks.edit', $task->id) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</a>
                 </td>
