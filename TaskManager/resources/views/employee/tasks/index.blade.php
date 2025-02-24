@@ -29,7 +29,7 @@
                 <td>{{ \Carbon\Carbon::parse($task->deadline)->format('y-m-d') }}</td>
                 <td>{{ $task->status }}</td>
                 <td>
-                    <form method="POST" action="{{ route('manager.tasks.update', $task->id) }}" style="display: inline;">
+                    <form method="POST" action="{{ route('employee.tasks.update', $task->id) }}" style="display: inline;">
                         @csrf
                         @method('PUT')
                         <select name="status" class="form-control">

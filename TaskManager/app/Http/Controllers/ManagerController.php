@@ -31,7 +31,8 @@ class ManagerController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'deadline' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|in:pending,in-progress,completed',
             'user_id' => 'nullable|exists:users,id',
         ]);
@@ -41,18 +42,4 @@ class ManagerController extends Controller
         return redirect()->route('manager.tasks');
     }
 
-
-    // public function updateTask(Request $request, $id)
-    // {
-    //     $task = Task::findOrFail($id);
-
-    //     $validated = $request->validate([
-    //         'status' => 'required|in:pending,in-progress,completed'
-    //     ]);
-
-    //     $task->status = $validated['status'];
-    //     $task->save();
-    //     toastr()->success('Task status updated successfully.');
-    //     return redirect()->back()->with('success', 'Task status updated successfully.');
-    // }
 }
